@@ -1,0 +1,14 @@
+# NBA-Raw-Data-Compiler
+Abhijai Singh
+
+
+
+Python – MySQL NBA Data Analysis Project
+
+
+
+	For this project, I chose to import the xlrd and mysql.connector libraries to aid in the access of xlsx files and export data from Python to MySQL respectively. I then connected the database with the requisite login and host information and then created the database "NBAData". Inside the database I created the table pbp_players_on_court and defined the limits of play_id (char, size 6) and the rest of the 10 players (int, size 10). Following this, 2 definitions, with_index and replace_all provide the functionality to represent an in game player substitution. Next, using xlrd I opened and assigned names to the given xlsx files and in turn assigned worksheets to those respectively. Derived from this is total_rows which i use to span the entirety of the xlsx files from a rows perspective. For testing purposes I limited this number to 80. List definitions follow, allowing me to record different types of data during each iteration of my script. 
+
+	Prompting the use, I offer the two NBA games available for call using gameid as the int variable. Thus initiates the over arching For loop from x to total_rows that accounts for all play_id values. The first condition involves checking that the gameID matches the game the iteration is on. If it doesn't match, the for loop will iterate until a match is found. If a match is found, then three possible conditions await. The first being, if play_eventid == 0 then add said player's player_id to the player_oncourt list. This accounts for the unique situations where starting lineups are being entered into the data. The second condition involves the situation when a substitution is being made. An if and statement is used to first check if the play_eventid == 10 (signifying a sub being made) with the and condition making sure the play_sequence of the next row is not equal to 2 as to prevent any overwriting. Then, using three arguments(list, subbing out player, subbing in player) the replace_all function is called to make the adjustment. The else condition accounts for all plays where no changes are being made to the players on court.
+
+	Outside of the gameid checking condition is the for loop that creates the play_id list, as well as the MySQL output. Due to out of range error messages with the player_oncourt and record lists, I had to create a workaround by copying the problematic lists to a new list and using for loops to .pop the contents of the lists into the INSERT function for export into the MySQL table. After committing to the db, I set record = [], finish the cycle of the overall for loop and iterate x plus 1. The script when finished, delivers a table of data that includes play_id and all the players on the court during that specific play to command line or MySQL table.
