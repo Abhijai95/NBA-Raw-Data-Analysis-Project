@@ -3,7 +3,7 @@ Abhijai Singh
 
 
 
-Python – MySQL NBA Data Analysis Project
+Python3 – MySQL NBA Data Analysis Project
 
 
 
